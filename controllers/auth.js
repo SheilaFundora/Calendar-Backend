@@ -1,5 +1,4 @@
-
-const Usuario = require('../model/Usuario');
+const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const {generateJWT} = require("../helpers/jwt");
 
@@ -7,38 +6,36 @@ const createUser = async (req, res = response) => {
 
     const { email, password } = req.body;
 
-    console.log(req.body)
-
-    //instancea del modelo usuario, le manamos directo el body
+    //instancea del modelo UserSchema, le manamos directo el body
     try{
         //validar si el email existe
-        // let usuario = await Usuario.findOne(email);
-        //
-        // if (usuario){
-        //     return res.status(400).json({
-        //         ok: false,
-        //         sms: 'El email ya esta existe'
-        //     })
-        // }
+        let user = await User.findOne( {email} ); //entre {} xq resibe un object
 
-        const usuario = new Usuario( req.body);
+        if (user){
+            return res.status(400).json({
+                ok: false,
+                sms: 'El email ya esta existe'
+            })
+        }
+        user = new User(req.body);
 
         //encriptar contrasenna
         const salt = bcrypt.genSaltSync();
         //aqui encriptamos la contrasenna llamando a la funcion hashSync q recibe la contrasenna q
         // queremos encriptar y el salt q no es mas q los saltos q queremos q tenga, por defecto viene en 10 mientras
         // mas grande mas segura pero mas leno
-        // usuario.password = bcrypt.hashSync(password, salt);
 
+        user.password = bcrypt.hashSync( password, salt);
 
-        await usuario.save();
+        await user.save();
 
-        // const token = await generateJWT(usuario.id, usuario.name)
+        const token = await generateJWT(user.id, user.name)
 
         res.status(201).json({
             ok: true,
             email,
-            password
+            password,
+            token
         })
 
     }catch (error){
@@ -50,22 +47,23 @@ const createUser = async (req, res = response) => {
     }
 
 }
+
 const loginUser = async (req, res = response) => {
 
     const { email, password } = req.body;
 
     try{
-        const usuario = await Usuario.findOne(email);
+        const user = await User.findOne({email});
 
-        if (!usuario){
+        if (!user){
             return res.status(400).json({
                 ok: false,
                 sms: 'El usuario no existe con ese email',
             })
         }
 
-        //Verificar si la contrasenna q hay en base d datos es igual a la enviada x el usuario
-        const validPassw = bcrypt.compareSync(password, usuario.password);
+        //Verificar si la contrasenna q hay en base d datos es igual a la enviada x el UserSchema
+        const validPassw = bcrypt.compareSync(password, user.password);
 
         if ( !validPassw ){
             res.status(400).json({
@@ -75,12 +73,13 @@ const loginUser = async (req, res = response) => {
             })
         }
 
-        const token = await generateJWT(usuario.id, usuario.name)
+        const token = await generateJWT(user.id, user.name)
 
         res.status(201).json({
             ok: true,
-            uid: usuario.id,
-            name: usuario.name
+            uid: user.id,
+            name: user.name,
+            token
         })
 
     }catch (error){
@@ -91,6 +90,7 @@ const loginUser = async (req, res = response) => {
         })
     }
 }
+
 const revalidateToken = async (req, res) => {
     const {uid,name} = req;
 
