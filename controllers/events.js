@@ -6,7 +6,7 @@ const Process = require("process");
 
 const getEvents =  async (req, res = response) => {
 
-    const event = await Event.find().populate('name');
+    const event = await Event.find().populate('user');
     // tabla asociada o sea los del usuario
     res.status(200).json({
         ok: false,

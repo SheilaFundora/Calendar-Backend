@@ -24,9 +24,9 @@ Content-Type: application/json
 
 {
 "name": "sheila",
-"email": "hthtthht@gamil.com",
+  "email": "sheilafundora04@gamil.com",
 "password": "123456789",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2MzMTIxM2FiOTU2YzI4YzdmNTEyNGEiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjczNzI4NTMyLCJleHAiOjE2NzM3MzU3MzJ9.WPTDzZ0s9id3Vx5DvuHKYw-8SDTCyH9ZV4lHZXaq5QM"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2MzMTIxM2FiOTU2YzI4YzdmNTEyNGEiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc0NDE3NDQxLCJleHAiOjE2NzQ0MjQ2NDF9.1_iRE5o-ozZEBcT1HhBm1Gu3UvK9c7fcZitgp6nx88s"
 }
 
 ###
