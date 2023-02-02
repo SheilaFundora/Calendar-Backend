@@ -4,7 +4,8 @@ const Process = require("process");
 
 const validateToken= (req, res = response, next) => {
     //resiviendo el jwt, como x-token headers
-    const token = req.body.token;
+    // const token = req.body.token;
+    const token = req.header('x-token');
 
     if( !token ){
         return res.status(401).json({

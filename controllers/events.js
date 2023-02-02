@@ -3,14 +3,13 @@ const Event = require("../model/Event");
 const jwt = require('jsonwebtoken');
 const Process = require("process");
 
-
 const getEvents =  async (req, res = response) => {
 
     const event = await Event.find().populate('user');
     // tabla asociada o sea los del usuario
     res.status(200).json({
         ok: false,
-        sms: event
+        event
     })
 }
 
@@ -19,7 +18,7 @@ const createEvents = async (req, res = response) => {
         const event = new Event( req.body);
 
         const payload = jwt.verify(
-            req.body.token,
+            req.header('x-token'),
             Process.env.SECRET_JWT
         )
 
@@ -54,8 +53,14 @@ const deleteEvents =  async (req, res = response) => {
                 sms: 'El eventpo no existe por esa id'
             })
         }
+        const payload = jwt.verify(
+            req.header('x-token'),
+            Process.env.SECRET_JWT
+        )
 
-        if( event.user.toString() !== req.uid ){
+        user_id = payload.uid;
+
+        if( event.user.toString() !== user_id ){
             return res.status(401).json({
                 ok: false,
                 sms: 'No tiene permisos para eliminar este evento'
@@ -63,7 +68,7 @@ const deleteEvents =  async (req, res = response) => {
 
         }
 
-        const eventUpdated = Event.findByIdAndDelete(eventId);//resive el id
+        await Event.findByIdAndDelete(eventId);//resive el id
 
         res.status(201).json({
             ok: true,
@@ -84,7 +89,7 @@ const updateEvents =  async (req, res = response) => {
     const eventId = req.params.id; //asi m quedo con lo q sige en la url, con el id
 
     try{
-        const event = await Event.findById(eventId);
+        const event = await Event.findById(eventId)
 
         if( !event ){
             return res.status(400).json({
@@ -93,26 +98,38 @@ const updateEvents =  async (req, res = response) => {
             })
         }
 
-        if( event.user.toString() !== req.uid ){ //si esto pasa es q hay una persona q quiere editar el evento sin permiso ya q no
+        const payload = jwt.verify(
+            req.header('x-token'),
+            Process.env.SECRET_JWT
+        )
+
+        user_id = payload.uid;
+
+        if( event.user.toString() !== user_id ){ //si esto pasa es q hay una persona q quiere editar el evento sin permiso ya q no
+
             // la q lo crop, no su evento
             return res.status(401).json({
                 ok: false,
                 sms: 'No tiene permisos para actualizar este evento'
             })
-
         }
 
         const newEvent = {
             ...req.body,
-            user: req.uid
+            user: event.user.toString()
         }
+
+
         //o sea aqui le decimos q busque el elemento por el id y lo actualice, le pasamos el id del evento que queremos
         // actaluzar y el nuev cntenido
-        const eventUpdated = Event.findByIdAndUpdate( eventId, newEvent , {new : true});
+        const eventUpdated = await Event.findByIdAndUpdate( eventId, newEvent, {new:true} );
+
+        console.log(newEvent)
 
         res.status(201).json({
             ok: true,
             eventUpdated
+
         })
 
     }catch(error){

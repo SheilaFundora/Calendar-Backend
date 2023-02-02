@@ -2,11 +2,11 @@ POST http://localhost:4000/api/events/
 Content-Type: application/json
 
 {
-  "title": "ultimo evento",
-  "date_start": 11,
-  "date_end": 100000000,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2MzMTIxM2FiOTU2YzI4YzdmNTEyNGEiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc0MDE1MzU2LCJleHAiOjE2NzQwMjI1NTZ9.OutDd3TPIz4AX_V3HXdk2cnDTqmW-z0viJg1teRs8x8"
-
+  "title": "asdasd",
+  "notes": "cambiar titulo",
+  "date_start": "Tue Jan 31 2023 14:00:00 GMT-0500 (Cuba Standard Time)",
+  "date_end": "Tue Jan 31 2023 15:00:00 GMT-0500 (Cuba Standard Time)",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2Q5ZDdjZmM1YThkNDEyYzAxZTQ0ZWYiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc1MzU1NjU0LCJleHAiOjE2NzUzNjI4NTR9.4_OISEmPbwsUf8Vg4cWXA1K_cigQ90pDyW892YYd0oU"
 }
 
 ###
@@ -14,24 +14,26 @@ GET http://localhost:4000/api/events
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2MzMTIxM2FiOTU2YzI4YzdmNTEyNGEiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc0MDk3ODkxLCJleHAiOjE2NzQxMDUwOTF9.xT0yUPlMTgtENP9qcc3sUKOjtMSQcfTPemclOH-JEyY"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2Q5ZDdjZmM1YThkNDEyYzAxZTQ0ZWYiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc1MzU1NjU0LCJleHAiOjE2NzUzNjI4NTR9.4_OISEmPbwsUf8Vg4cWXA1K_cigQ90pDyW892YYd0oU"
 }
 
 ###
 
-PUT http://localhost:4000/api/events/
+PUT http://localhost:4000/api/events/63dbe93fa110b03bb349e9a6
 Content-Type: application/json
 
 {
-  "title": "test evento",
-  "date_start": 11,
-  "date_end": 100000000,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2MzMTIxM2FiOTU2YzI4YzdmNTEyNGEiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc0MDk3ODkxLCJleHAiOjE2NzQxMDUwOTF9.xT0yUPlMTgtENP9qcc3sUKOjtMSQcfTPemclOH-JEyY"
+  "title": "asdasd nooo",
+  "notes": " titulo cambiado",
+  "date_start": "Tue Jan 31 2023 14:00:00 GMT-0500 (Cuba Standard Time)",
+  "date_end": "Tue Jan 31 2023 15:00:00 GMT-0500 (Cuba Standard Time)",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2M2Q5ZDdjZmM1YThkNDEyYzAxZTQ0ZWYiLCJuYW1lIjoic2hlaWxhIiwiaWF0IjoxNjc1MzU1NjU0LCJleHAiOjE2NzUzNjI4NTR9.4_OISEmPbwsUf8Vg4cWXA1K_cigQ90pDyW892YYd0oU"
 }
 
 ###
 
-DELETE http://localhost:4000/api/events/235
+DELETE http://localhost:4000/api/events/63dbe93fa110b03bb349e9a9
 Accept: application/json
+
 
 ###
